@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import List from "./components/List";
 
 function App() {
+  const [arr, setarr] = useState(["item1", "item2", "item3"]);
+
+  const addToArr = () => {
+    let len = arr.length + 1;
+    setarr([...arr, "item" + len]);
+  };
+  const removeFromArr = () => {
+    setarr((prev) => prev.slice(0, -1));
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div data-testid="list">
+      <List array={arr} />
+      <button data-testid="add-button" onClick={addToArr}>
+        Add item
+      </button>
+      <button data-testid="rem-button" onClick={removeFromArr}>
+        Remove item
+      </button>
     </div>
   );
 }
